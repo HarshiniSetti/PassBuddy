@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Warden Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark bg-danger">
+<div class="container">
+
+<span class="navbar-brand">Warden Dashboard</span>
+
+<a href="/" class="btn btn-light btn-sm">
+<i class="bi bi-house-door-fill"></i>
+</a>
+
+</div>
+</nav>
+
+
+<div class="container mt-4">
+
+<div class="row">
+
+<!-- RIGHT SIDE REQUEST TABLE -->
+
+<div class="col-12">
+
+<div class="card shadow">
+
+<div class="card-header bg-dark text-white">
+Outpass Requests
+</div>
+
+<div class="card-body">
+
+<table class="table table-bordered table-striped">
+
+<tr>
+<th>Student</th>
+<th>Parent</th>
+<th>Photo</th>
+<th>Reason</th>
+<th>Status</th>
+<th>Out Time</th>
+<th>Action</th>
+</tr>
+
+{% for req in requests %}
+
+<tr>
+
+<!-- <td>{{ req[0] }}</td> -->
+
+<td>{{ req[1] }}</td>
+
+<td>{{ req[2] }}</td>
+
+<td>
+
+<img src="{{ url_for('static', filename='uploads/' + req[3]) }}" width="60" class="rounded">
+
+</td>
+
+<td>{{ req[4] }}</td>
+
+<td>
+
+{% if req[5]=="Approved" %}
+
+<span class="badge bg-success">Approved</span>
+
+{% elif req[5]=="Rejected" %}
+
+<span class="badge bg-danger">Rejected</span>
+
+{% else %}
+
+<span class="badge bg-warning">Pending</span>
+
+{% endif %}
+
+</td>
+
+<!-- <td>
+{% if req[7] %}
+{{ req[7] }}
+{% else %}
+-
+{% endif %}
+</td> -->
+
+<td>
+{% if req[7] %}
+{{ req[7] }} 
+{% else %}
+-
+{% endif %}
+</td>
+
+<td>
+
+<div class="d-flex gap-2">
+
+{% if req[5] == "Pending" %}
+
+<a href="/update_status/{{ req[0] }}/Approved" class="btn btn-success btn-sm">
+Approve
+</a>
+
+<a href="/update_status/{{ req[0] }}/Rejected" class="btn btn-danger btn-sm">
+Reject
+</a>
+
+{% endif %}
+
+<a href="/delete_request/{{ req[0] }}" class="btn btn-warning btn-sm">
+Delete
+</a>
+
+</div>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

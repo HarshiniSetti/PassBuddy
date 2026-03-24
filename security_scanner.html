@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Security QR Scanner</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+<div class="row justify-content-center">
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-header bg-dark text-white text-center">
+<h4>Hostel Gate QR Scanner</h4>
+</div>
+
+<div class="card-body text-center">
+
+<p class="text-muted">
+Scan student outpass QR code
+</p>
+
+<div id="reader" style="width:100%"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function onScanSuccess(decodedText, decodedResult) {
+
+    console.log("QR Code detected:", decodedText);
+
+    // Redirect to verification page
+    window.location.href = decodedText;
+
+}
+
+function onScanFailure(error) {
+    // ignore scan errors
+}
+
+let scanner = new Html5QrcodeScanner(
+    "reader",
+    {
+        fps: 10,
+        qrbox: 250
+    }
+);
+
+scanner.render(onScanSuccess);
+
+</script>
+
+</body>
+</html>
